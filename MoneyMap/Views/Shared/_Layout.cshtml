@@ -4,73 +4,116 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MoneyMap</title>
-    <script type="importmap"></script>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MoneyMap.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MoneyMap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container">
+
+                <!-- Brand -->
+                <a class="navbar-brand fw-semibold d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    <span class="rounded-circle bg-white text-primary d-inline-flex align-items-center justify-content-center me-2" style="width:32px;height:32px;font-size:0.9rem;">
+                        MM
+                    </span>
+                    MoneyMap
+                </a>
+
+                <!-- Mobile toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar" aria-controls="mainNavbar"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                         @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Expenses" asp-action="Index">My Expenses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Expenses" asp-action="Create">Add Expense</a>
+                                <a class="nav-link" asp-controller="Expenses" asp-action="Index">
+                                    Overview
+                                </a>
                             </li>
                         }
                     </ul>
-                    <ul class="navbar-nav">
+
+                    <!-- Right user area -->
+                    <ul class="navbar-nav align-items-lg-center">
                         @if (User.Identity!.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <span class="navbar-text me-3">Hello, @User.Identity.Name!</span>
+                            <li class="nav-item me-lg-3 text-white-50 small d-flex align-items-center">
+                                <span class="me-2 d-none d-md-inline">Signed in as</span>
+                                <span class="badge bg-light text-primary">@User.Identity.Name</span>
                             </li>
                             <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-link nav-link text-dark">Log out</button>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="mb-0">
+                                    <button type="submit" class="btn btn-outline-light btn-sm">
+                                        Log out
+                                    </button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="SignIn">Sign In</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="SignIn">
+                                    Sign In
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="SignUp">Sign Up</a>
+                                <a class="btn btn-light btn-sm ms-lg-2"
+                                   asp-controller="Account" asp-action="SignUp">
+                                    Get Started
+                                </a>
                             </li>
                         }
                     </ul>
+
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - MoneyMap - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Main content -->
+    <main class="flex-fill">
+        <div class="container py-4">
+            <!-- Page header / breadcrumb area -->
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4">
+
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <a asp-controller="Expenses" asp-action="Create" class="btn btn-primary mt-3 mt-md-0">
+                        + Add Expense
+                    </a>
+                }
+            </div>
+
+            <!-- Card wrapper for page body -->
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-top bg-white text-muted mt-auto">
+        <div class="container py-3 d-flex flex-column flex-md-row justify-content-between align-items-center small">
+            <span>&copy; 2025 MoneyMap</span>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
