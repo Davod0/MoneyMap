@@ -1,8 +1,126 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Overview";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-4">
+
+    <div class="row align-items-center mb-4">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <h1 class="h3 mb-3">Stay on top of your spending</h1>
+            <p class="text-muted mb-3">
+                MoneyMap helps you understand where your money goes each month so you can cut unnecessary costs and focus on what matters.
+            </p>
+            <ul class="list-unstyled text-muted small mb-0">
+                <li class="mb-1">• Categorize every expense in seconds.</li>
+                <li class="mb-1">• See clear visuals of your spending habits.</li>
+                <li class="mb-1">• Set goals and monitor your progress over time.</li>
+            </ul>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <h2 class="h5 mb-1">This month’s snapshot</h2>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column flex-md-row align-items-center">
+                        <div class="mb-3 mb-md-0 me-md-4">
+                            <canvas id="overviewChart" style="max-width: 260px; max-height: 260px;"></canvas>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <ul class="list-unstyled small mb-0">
+                                <li class="d-flex justify-content-between">
+                                    <span>Essentials</span>
+                                    <strong>55%</strong>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <span>Lifestyle</span>
+                                    <strong>25%</strong>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <span>Transport</span>
+                                    <strong>10%</strong>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <span>Savings & Investments</span>
+                                    <strong>10%</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-8">
+            <div class="alert alert-primary border-0 shadow-sm mb-0">
+                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+                    <div class="mb-2 mb-md-0">
+                        <strong>Start mapping your money today.</strong>
+                        <span class="d-block d-md-inline text-muted ms-md-1">
+                            Add your first expense and get an instant overview.
+                        </span>
+                    </div>
+                    <div class="text-md-end">
+                        <a asp-controller="Expenses" asp-action="Create" class="btn btn-primary btn-sm me-2">
+                            + Add first expense
+                        </a>
+                        <a asp-controller="Expenses" asp-action="Index" class="btn btn-outline-primary btn-sm">
+                            View all expenses
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctxOverview = document.getElementById('overviewChart');
+
+        new Chart(ctxOverview, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Essentials',
+                    'Lifestyle',
+                    'Transport',
+                    'Savings & Investments'
+                ],
+                datasets: [{
+                    data: [55, 25, 10, 10],
+                    backgroundColor: [
+                        'rgba(13, 110, 253, 0.9)',   // blue
+                        'rgba(25, 135, 84, 0.9)',   // green
+                        'rgba(255, 193, 7, 0.9)',   // yellow
+                        'rgba(220, 53, 69, 0.9)'    // red
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+}

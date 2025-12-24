@@ -1,0 +1,1 @@
+﻿MoneyMap is a personal expense tracking web application built with modern ASP.NET Core 10 technology

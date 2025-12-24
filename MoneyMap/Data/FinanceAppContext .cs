@@ -1,10 +1,11 @@
 ﻿using FinanceApp.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace FinanceApp.Data
 {
-    public class FinanceAppContext : DbContext
+    public class FinanceAppContext : IdentityDbContext<IdentityUser>
     {
         public FinanceAppContext(DbContextOptions<FinanceAppContext> options) : base(options) { }
 
