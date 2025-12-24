@@ -16,13 +16,13 @@ namespace FinanceApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult SignUp()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> SignUp(SignUp model)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace FinanceApp.Controllers
                     return RedirectToAction("Index", "Expenses");
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid Sign-in attempt.");
+                ModelState.AddModelError(string.Empty, "Invalid sign-in attempt.");
             }
 
             return View(model);

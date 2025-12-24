@@ -2,7 +2,7 @@
 
 namespace FinanceApp.Models
 {
-    public class RegisterViewModel
+    public class SignUp
     {
         [Required]
         [EmailAddress]

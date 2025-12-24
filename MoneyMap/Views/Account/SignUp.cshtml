@@ -1,6 +1,6 @@
-﻿@model FinanceApp.Models.RegisterViewModel
+﻿@model FinanceApp.Models.SignUp
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Sign up";
 }
 
 <div class="container mt-5">
@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <h2>Create a new account</h2>
             <hr />
-            <form asp-action="Register" method="post">
+            <form asp-action="SignUp" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="mb-3">
@@ -29,7 +29,7 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary">Sign up</button>
             </form>
 
             <div class="mt-3">
